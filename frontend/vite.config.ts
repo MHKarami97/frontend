@@ -3,26 +3,30 @@ import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-  base: '/ordertrack/',
+  base: '/',
   plugins: [
     vue(),
     VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg'],
+      registerType: 'prompt',
+      includeAssets: ["icons/*.png"],
       manifest: {
-        name: 'OrderTrack',
-        short_name: 'OrderTrack',
-        description: 'Persian order tracking PWA',
+        name: 'زلف دوتا',
+        short_name: 'زلف دوتا',
+        description: 'ردیاب خریدهای فروشگاه',
         theme_color: '#D946EF',
         background_color: '#FAFAFA',
-        display: 'standalone',
+        display: 'fullscreen',
         lang: 'fa-IR',
         dir: 'rtl',
-        start_url: '/ordertrack/#/',
+        start_url: '/',
         icons: [
-          { src: '/ordertrack/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/ordertrack/icons/icon-512.png', sizes: '512x512', type: 'image/png' }
-        ]
+          { src: "icons/icon-48.png", sizes: "48x48", type: "image/png" },
+          { src: "icons/icon-72.png", sizes: "72x72", type: "image/png" },
+          { src: "icons/icon-96.png", sizes: "96x96", type: "image/png" },
+          { src: "icons/icon-144.png", sizes: "144x144", type: "image/png" },
+          { src: "icons/icon-192.png", sizes: "192x192", type: "image/png" },
+          { src: "icons/icon-512.png", sizes: "512x512", type: "image/png" },
+        ],
       }
     })
   ]
