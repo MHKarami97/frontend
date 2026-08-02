@@ -1,11 +1,15 @@
 <template>
   <div class="mx-auto max-w-7xl px-4 py-10 md:px-8">
-    <div class="flex justify-between items-center mb-8">
+    
+    <!-- Admin Header & Logout -->
+    <div class="flex justify-between items-center mb-8 bg-white p-6 rounded-3xl shadow-sm border border-neutral-100">
       <div>
         <h1 class="text-3xl font-black text-neutral-900">پنل مدیریت کل سیستم</h1>
         <p class="text-neutral-500 mt-2">کنترل مرکزی زیرساخت OrderTrack</p>
       </div>
-      <button class="btn-ghost text-danger border border-red-100 hover:bg-red-50" @click="logout">خروج امن</button>
+      <button class="btn-ghost text-danger font-bold border border-red-100 bg-red-50 hover:bg-red-100 px-6 py-3 rounded-2xl" @click="handleLogout">
+        خروج امن
+      </button>
     </div>
     
     <!-- Stats Skeletons -->
@@ -120,7 +124,6 @@ const loadShops = async () => {
   loadingShops.value = true;
   const query = filter.value ? `?status=${filter.value}` : ''; 
   const result = await api.get(`/api/admin/shops${query}`); 
-  // افزودن پراپرتی isSaving به هر ردیف برای دیزیبل کردن فردی
   shops.value = result.map((s: any) => ({ ...s, isSaving: false }));
   loadingShops.value = false;
 };
@@ -139,12 +142,11 @@ const saveShop = async (shop: any, status?: 'active' | 'banned') => {
     operatorLimit: Number(shop.operator_limit), 
     exposeOrderSource: Boolean(shop.expose_order_source) 
   }); 
-  // Refresh data softly
   await loadShops(); 
-  if(!status) loadStats(); // Update stats if general limits saved doesn't hurt, but status change definitely needs stat update
+  if(!status) loadStats(); 
 };
 
-const logout = async () => {
+const handleLogout = async () => {
   await store.logout();
   router.push('/admin-login');
 };
