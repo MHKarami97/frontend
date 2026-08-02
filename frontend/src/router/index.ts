@@ -13,21 +13,26 @@ const routes = [
   { path: '/reports', component: () => import('../views/reports/ReportsView.vue') },
   { path: '/shop-users', component: () => import('../views/admin/ShopUsersView.vue') },
   { path: '/system-admin', component: () => import('../views/admin/SystemAdminView.vue') },
-  { path: '/track/:token', component: () => import('../views/public/TrackOrderView.vue') }
+  { path: '/track/:token', component: () => import('../views/public/TrackOrderView.vue') },
+  
+  // NEW: Catch-all 404 Route for Vue Router
+  { path: '/:pathMatch(.*)*', component: () => import('../views/public/NotFoundView.vue') }
 ];
 
 const router = createRouter({ history: createWebHashHistory(), routes });
+
 router.beforeEach((to) => {
   const token = localStorage.getItem('ordertrack-token');
   const role = localStorage.getItem('ordertrack-role');
   const publicPaths = ['/', '/login', '/admin-login', '/register'];
   const isTrackingPage = to.path.startsWith('/track/');
   
-  if (publicPaths.includes(to.path) || isTrackingPage) return true;
+  if (publicPaths.includes(to.path) || isTrackingPage || to.path.startsWith('/404') || to.matched.length === 0) return true;
   if (!token) return '/login';
   if (to.path === '/system-admin' && role !== 'system_admin') return '/dashboard';
   if (role === 'shop_operator' && ['/products', '/customers', '/reports', '/shop-users'].includes(to.path)) return '/orders';
   
   return true;
 });
+
 export default router;
