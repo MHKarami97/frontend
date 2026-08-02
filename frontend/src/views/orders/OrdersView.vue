@@ -17,7 +17,7 @@
         <h1 class="text-2xl font-extrabold">سفارش‌ها</h1>
         <div class="w-full max-w-xs">
            <label for="searchOrders" class="sr-only">جستجو</label>
-           <input id="searchOrders" v-model="search" class="input-field" placeholder="جستجو (نام، کد)..." @input="debounceLoadOrders" />
+           <input id="searchOrders" v-model="search" class="input-field" placeholder="جستجو سفارش" @input="debounceLoadOrders" />
         </div>
       </div>
       
