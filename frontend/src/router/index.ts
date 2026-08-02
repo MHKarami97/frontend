@@ -2,6 +2,8 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 
 const routes = [
   { path: '/', component: () => import('../views/public/LandingPage.vue') },
+  { path: '/about', component: () => import('../views/public/AboutView.vue') },
+  { path: '/contact', component: () => import('../views/public/ContactView.vue') },
   { path: '/login', component: () => import('../views/auth/LoginView.vue') },
   { path: '/admin-login', component: () => import('../views/auth/AdminLoginView.vue') },
   { path: '/register', component: () => import('../views/auth/RegisterView.vue') },
@@ -14,8 +16,6 @@ const routes = [
   { path: '/shop-users', component: () => import('../views/admin/ShopUsersView.vue') },
   { path: '/system-admin', component: () => import('../views/admin/SystemAdminView.vue') },
   { path: '/track/:token', component: () => import('../views/public/TrackOrderView.vue') },
-  
-  // NEW: Catch-all 404 Route for Vue Router
   { path: '/:pathMatch(.*)*', component: () => import('../views/public/NotFoundView.vue') }
 ];
 
@@ -24,7 +24,7 @@ const router = createRouter({ history: createWebHashHistory(), routes });
 router.beforeEach((to) => {
   const token = localStorage.getItem('ordertrack-token');
   const role = localStorage.getItem('ordertrack-role');
-  const publicPaths = ['/', '/login', '/admin-login', '/register'];
+  const publicPaths = ['/', '/login', '/admin-login', '/register', '/about', '/contact'];
   const isTrackingPage = to.path.startsWith('/track/');
   
   if (publicPaths.includes(to.path) || isTrackingPage || to.path.startsWith('/404') || to.matched.length === 0) return true;
