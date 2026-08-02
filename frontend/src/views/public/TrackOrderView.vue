@@ -9,7 +9,8 @@
       
       <div class="p-8">
         <div class="flex flex-col sm:flex-row gap-6">
-          <img v-if="data.product?.imageUrl" :src="data.product.imageUrl" class="h-32 w-32 rounded-2xl object-cover border border-neutral-100 shadow-sm" />
+          <!-- Mapping full URL correctly here -->
+          <img v-if="data.product?.imageUrl" :src="getFullImageUrl(data.product.imageUrl)" class="h-32 w-32 rounded-2xl object-cover border border-neutral-100 shadow-sm" />
           <div v-else class="h-32 w-32 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-400">بدون عکس</div>
           
           <div class="flex-1">
@@ -58,7 +59,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { api } from '../../services/api';
+import { api, getFullImageUrl } from '../../services/api';
 import { orderStatusMap, sourceMap, translateEnum } from '../../utils/mapper';
 
 const route = useRoute(); 

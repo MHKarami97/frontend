@@ -1,9 +1,8 @@
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://ordertrack-api.mhkarami97.workers.dev';
+export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://ordertrack-api.mhkarami97.workers.dev';
 const getToken = () => localStorage.getItem('ordertrack-token') || '';
 const getRefreshToken = () => localStorage.getItem('ordertrack-refresh-token') || '';
 const getHeaders = () => ({ 'Content-Type': 'application/json', ...(getToken() ? { Authorization: `Bearer ${getToken()}` } : {}) });
 
-// حافظه کش کلاینت
 interface CacheEntry {
   data: any;
   timestamp: number;
@@ -33,7 +32,6 @@ const request = async (path: string, options: RequestInit = {}) => {
 };
 
 export const api = {
-  // متد GET حالا پارامتر ttl (به میلی‌ثانیه) می‌پذیرد
   get: async (path: string, ttl: number = 1000) => {
     if (ttl > 0) {
       const cached = cache.get(path);
@@ -42,7 +40,6 @@ export const api = {
       }
     }
     const data = await request(path);
-    // اگر درخواست موفقیت‌آمیز بود (وجود دیتا یا آرایه) آن را کش کن
     if (ttl > 0 && !data.error && !data.message) {
       cache.set(path, { data, timestamp: Date.now() });
     }
@@ -51,10 +48,16 @@ export const api = {
   post: (path: string, body: unknown) => request(path, { method: 'POST', body: JSON.stringify(body) }),
   patch: (path: string, body: unknown) => request(path, { method: 'PATCH', body: JSON.stringify(body) }),
   delete: (path: string) => request(path, { method: 'DELETE' }),
-  
-  // متد برای باطل کردن کش
   clearCache: (path?: string) => {
     if (path) cache.delete(path);
     else cache.clear();
   }
+};
+
+// نگاشت هوشمند آدرس عکس برای پشتیبانی از داده‌های قدیمی و جدید
+export const getFullImageUrl = (val: string | null | undefined) => {
+  if (!val) return '';
+  if (val.startsWith('http')) return val; // دیتای قبلی که کامل ذخیره شده
+  if (val.startsWith('/')) return `${apiBaseUrl}${val}`; // دیتای قبلی که به صورت پث ذخیره شده
+  return `${apiBaseUrl}/api/upload/${val}`; // دیتای جدید که فقط شناسه است
 };

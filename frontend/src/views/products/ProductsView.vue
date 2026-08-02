@@ -15,7 +15,6 @@
           <div class="flex flex-col gap-1.5">
             <label for="prodImage" class="label-text">تصویر محصول</label>
             <div class="relative">
-              <!-- اضافه شدن ref برای دسترسی به اینپوت در جاوااسکریپت -->
               <input id="prodImage" ref="fileInputRef" type="file" accept="image/*" class="input-field py-2 text-neutral-500 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-fuchsia-50 file:text-primary hover:file:bg-fuchsia-100" @change="handleFileUpload" :disabled="isLoading || isUploading" />
               <div v-if="isUploading" class="absolute left-3 top-3 text-xs text-primary font-bold animate-pulse">در حال آپلود...</div>
             </div>
@@ -23,6 +22,7 @@
           
           <div class="flex flex-col gap-1.5">
             <label for="prodPrice" class="label-text">قیمت (تومان)</label>
+            <!-- price now starts empty -->
             <input id="prodPrice" v-model.number="form.price" class="input-field" type="number" min="0" placeholder="مثال: 50000" :disabled="isLoading || isUploading" required />
           </div>
           
@@ -40,7 +40,7 @@
       
       <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         <div v-for="product in products" :key="product.id" class="card overflow-hidden">
-          <img v-if="product.image_url" :src="product.image_url" class="h-56 w-full object-cover border-b border-neutral-100" />
+          <img v-if="product.image_url" :src="getFullImageUrl(product.image_url)" class="h-56 w-full object-cover border-b border-neutral-100" />
           <div v-else class="h-56 w-full bg-neutral-100 flex items-center justify-center text-neutral-400 text-sm">بدون تصویر</div>
           
           <div class="p-6">
@@ -87,7 +87,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue';
 import AppShell from '../../components/layout/AppShell.vue';
-import { api } from '../../services/api';
+import { api, getFullImageUrl, apiBaseUrl } from '../../services/api';
 
 const products = ref<any[]>([]);
 const errorMessage = ref('');
@@ -96,8 +96,9 @@ const isLoading = ref(false);
 const isUploading = ref(false);
 const fileInputRef = ref<HTMLInputElement | null>(null);
 
-const form = reactive({ title: '', imageUrl: '', description: '', price: 0 });
-const editForm = reactive({ title: '', imageUrl: '', description: '', price: 0 });
+// Price starts as empty string to show placeholder
+const form = reactive({ title: '', imageUrl: '', description: '', price: '' as unknown as number });
+const editForm = reactive({ title: '', imageUrl: '', description: '', price: '' as unknown as number });
 
 const handleFileUpload = async (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -108,7 +109,6 @@ const handleFileUpload = async (event: Event) => {
     const formData = new FormData();
     formData.append('file', file);
     const token = localStorage.getItem('ordertrack-token');
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://ordertrack-api.mhkarami97.workers.dev';
     
     const response = await fetch(`${apiBaseUrl}/api/upload`, {
       method: 'POST',
@@ -118,9 +118,8 @@ const handleFileUpload = async (event: Event) => {
     
     const resData = await response.json();
     if (resData.url) {
-      // ایجاد URL مطلق برای Zod
-      const baseUrl = apiBaseUrl.endsWith('/') ? apiBaseUrl.slice(0, -1) : apiBaseUrl;
-      form.imageUrl = resData.url.startsWith('http') ? resData.url : `${baseUrl}${resData.url}`;
+      // فقط استخراج شناسه از مسیر نسبی
+      form.imageUrl = resData.url.split('/').pop() || '';
     } else {
       errorMessage.value = 'آپلود با خطا مواجه شد.';
     }
@@ -128,7 +127,6 @@ const handleFileUpload = async (event: Event) => {
     errorMessage.value = 'خطا در ارتباط با سرور.';
   } finally {
     isUploading.value = false;
-    // حذف ریست شدن اینپوت از اینجا، تا کاربر ببیند فایل انتخاب شده است
   }
 };
 
@@ -138,20 +136,26 @@ const createProduct = async () => {
   isLoading.value = true;
   errorMessage.value = '';
   try {
-    const result = await api.post('/api/products', form);
+    // Cast price properly before sending
+    const payload = { ...form, price: Number(form.price) };
+    const result = await api.post('/api/products', payload);
+    
     if (result.message && result.message !== 'Product created') {
       errorMessage.value = result.message;
       return;
     }
-    // پاک کردن فرم پس از موفقیت
-    Object.assign(form, { title: '', imageUrl: '', description: '', price: 0 });
-    if (fileInputRef.value) fileInputRef.value.value = ''; // حالا اینپوت را خالی می‌کنیم
     
-    // پاک کردن کش داشبورد چون آمار محصولات تغییر کرده
+    // Reset form with empty price
+    Object.assign(form, { title: '', imageUrl: '', description: '', price: '' as unknown as number });
+    if (fileInputRef.value) fileInputRef.value.value = '';
+    
     api.clearCache('/api/reports/summary');
     await loadProducts();
-  } catch (e) { errorMessage.value = 'خطا در ثبت محصول'; }
-  finally { isLoading.value = false; }
+  } catch (e) {
+    errorMessage.value = 'خطا در ثبت محصول';
+  } finally {
+    isLoading.value = false;
+  }
 };
 
 const startEdit = (product: any) => { 
@@ -159,9 +163,23 @@ const startEdit = (product: any) => {
   Object.assign(editForm, { title: product.title, imageUrl: product.image_url || '', description: product.description || '', price: product.price }); 
 };
 
-const saveEdit = async (id: string) => { await api.patch(`/api/products/${id}`, editForm); editingId.value = ''; await loadProducts(); };
-const toggleActive = async (product: any) => { await api.patch(`/api/products/${product.id}`, { isActive: !product.is_active }); await loadProducts(); };
-const removeProduct = async (id: string) => { await api.delete(`/api/products/${id}`); api.clearCache('/api/reports/summary'); await loadProducts(); };
+const saveEdit = async (id: string) => { 
+  const payload = { ...editForm, price: Number(editForm.price) };
+  await api.patch(`/api/products/${id}`, payload); 
+  editingId.value = ''; 
+  await loadProducts(); 
+};
+
+const toggleActive = async (product: any) => { 
+  await api.patch(`/api/products/${product.id}`, { isActive: !product.is_active }); 
+  await loadProducts(); 
+};
+
+const removeProduct = async (id: string) => { 
+  await api.delete(`/api/products/${id}`); 
+  api.clearCache('/api/reports/summary'); 
+  await loadProducts(); 
+};
 
 onMounted(loadProducts);
 </script>
