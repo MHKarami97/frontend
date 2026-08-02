@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto flex min-h-screen flex-col md:flex-row">
     <aside class="hidden w-72 border-l border-neutral-200 bg-white p-6 md:block">
-      <div class="mb-6 text-2xl font-extrabold text-primary">OrderTrack</div>
+      <div class="mb-6 text-2xl font-extrabold text-primary">زلف دوتا</div>
       <nav class="space-y-3 text-sm">
         <RouterLink class="block rounded-xl px-4 py-3 hover:bg-fuchsia-50" to="/dashboard">داشبورد</RouterLink>
         <RouterLink class="block rounded-xl px-4 py-3 hover:bg-fuchsia-50" to="/orders">سفارش‌ها</RouterLink>
