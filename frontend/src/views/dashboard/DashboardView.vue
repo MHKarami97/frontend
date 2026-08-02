@@ -1,6 +1,7 @@
 <template>
   <AppShell>
     <div class="space-y-6">
+      <!-- Header -->
       <div>
         <h1 class="text-2xl font-extrabold">داشبورد</h1>
         <div v-if="loadingShop" class="skeleton h-4 w-32 mt-2"></div>
@@ -22,6 +23,7 @@
         <div class="card p-5"><div class="text-sm text-neutral-500">در انتظار</div><div class="mt-2 text-3xl font-extrabold text-warning">{{ summary.pending_count || 0 }}</div></div>
       </div>
 
+      <!-- Settings & Limits -->
       <div class="grid gap-4 md:grid-cols-2">
         <div class="card p-5">
           <h2 class="font-bold">تنظیمات نمایش در لینک خریدار</h2>
@@ -54,6 +56,34 @@
           </div>
         </div>
       </div>
+
+      <!-- NEW: Support & Upsell Banner -->
+      <div class="card p-6 lg:p-8 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white shadow-xl relative overflow-hidden border-none mt-4">
+        <!-- Decorative Glow -->
+        <div class="absolute -left-10 -top-10 w-40 h-40 bg-primary opacity-20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-cyan-500 opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="w-full md:w-auto">
+            <h2 class="text-xl font-black text-white">نیاز به امکانات بیشتر یا پشتیبانی دارید؟</h2>
+            <p class="mt-2 text-sm text-neutral-400 leading-relaxed max-w-xl">
+              برای ارتقاء سقف لینک‌های روزانه، اضافه کردن همکاران جدید به فروشگاه، یا دریافت راهنمایی‌های فنی، تیم پشتیبانی زلف همواره در کنار شماست.
+            </p>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0">
+            <a href="https://t.me/mhkarami97" target="_blank" class="flex items-center justify-center gap-2 bg-[#2AABEE]/10 hover:bg-[#2AABEE]/20 text-[#2AABEE] border border-[#2AABEE]/30 px-5 py-3 rounded-2xl transition-colors font-bold text-sm w-full sm:w-auto">
+              <span>تلگرام پشتیبانی</span>
+              <span dir="ltr">@mhkarami97</span>
+            </a>
+            <a href="tel:0210000000" class="flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-white border border-white/10 px-5 py-3 rounded-2xl transition-colors font-bold text-sm w-full sm:w-auto">
+              <span>تماس تلفنی</span>
+              <span dir="ltr">021-00000000</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </AppShell>
 </template>
@@ -93,7 +123,6 @@ const saveSettings = async () => {
 };
 
 onMounted(() => {
-  // فراخوانی موازی اما مستقل برای لودینگ‌های جداگانه
   loadSummary();
   loadShop();
 });
