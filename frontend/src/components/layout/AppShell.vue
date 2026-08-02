@@ -3,13 +3,13 @@
     
     <!-- Mobile Top Bar (NEW: For mobile logout and branding) -->
     <header class="md:hidden sticky top-0 z-40 flex items-center justify-between bg-white/90 backdrop-blur-md border-b border-neutral-100 px-5 py-3 shadow-sm">
-      <div class="font-black text-lg text-transparent bg-clip-text bg-gradient-to-l from-primary to-cyan-500">OrderTrack</div>
+      <div class="font-black text-lg text-transparent bg-clip-text bg-gradient-to-l from-primary to-cyan-500">زلف</div>
       <button @click="handleLogout" class="text-xs font-bold text-danger bg-red-50 hover:bg-red-100 px-4 py-2 rounded-xl transition-colors">خروج امن</button>
     </header>
 
     <!-- Desktop Sidebar -->
     <aside class="hidden w-72 border-l border-neutral-100 bg-white p-6 md:flex md:flex-col sticky top-0 h-screen shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
-      <div class="mb-8 text-2xl font-black text-transparent bg-clip-text bg-gradient-to-l from-primary to-cyan-500">OrderTrack</div>
+      <div class="mb-8 text-2xl font-black text-transparent bg-clip-text bg-gradient-to-l from-primary to-cyan-500">زلف</div>
       
       <nav class="space-y-2 text-sm font-semibold flex-1">
         <RouterLink class="block rounded-2xl px-4 py-3 text-neutral-600 hover:bg-fuchsia-50 hover:text-primary transition-colors" active-class="bg-fuchsia-50 text-primary" to="/dashboard">داشبورد</RouterLink>

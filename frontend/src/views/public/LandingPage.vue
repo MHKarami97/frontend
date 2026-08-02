@@ -5,7 +5,7 @@
     <header class="border-b border-neutral-100 bg-white/80 backdrop-blur-md fixed top-0 w-full z-50">
       <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
         <div class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-l from-primary to-cyan-500">
-          OrderTrack
+          زلف دوتا
         </div>
         <div class="flex gap-4">
           <RouterLink class="text-sm font-semibold text-neutral-600 hover:text-primary transition-colors py-2" to="/login">ورود فروشگاه</RouterLink>
@@ -35,7 +35,7 @@
     <section id="features" class="bg-neutral-50 py-24 border-y border-neutral-100">
       <div class="mx-auto max-w-7xl px-6">
         <div class="text-center mb-16">
-          <h2 class="text-3xl font-extrabold text-neutral-900">چرا OrderTrack؟</h2>
+          <h2 class="text-3xl font-extrabold text-neutral-900">چرا زلف</h2>
           <p class="mt-4 text-neutral-500 text-lg">ابزارهای قدرتمند با کاربری فوق‌العاده ساده.</p>
         </div>
         
@@ -97,9 +97,8 @@
 
     <!-- Footer -->
     <footer class="bg-neutral-50 py-12 border-t border-neutral-200 text-center">
-      <div class="text-2xl font-black text-neutral-900 mb-4">OrderTrack</div>
-      <p class="text-neutral-500 text-sm mb-8">تمامی حقوق برای پلتفرم رهگیری سفارشات محفوظ است.</p>
-      <RouterLink to="/admin-login" class="text-xs text-neutral-400 hover:text-primary transition-colors">ورود مدیر سیستم</RouterLink>
+      <div class="text-2xl font-black text-neutral-900 mb-4">زلف دوتا</div>
+      <p class="text-neutral-500 text-sm mb-8">تمامی حقوق برای پلتفرم رهگیری سفارشات محفوظ است.</p>      
     </footer>
   </div>
 </template>

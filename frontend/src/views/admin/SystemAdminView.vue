@@ -5,7 +5,7 @@
     <div class="flex justify-between items-center mb-8 bg-white p-6 rounded-3xl shadow-sm border border-neutral-100">
       <div>
         <h1 class="text-3xl font-black text-neutral-900">پنل مدیریت کل سیستم</h1>
-        <p class="text-neutral-500 mt-2">کنترل مرکزی زیرساخت OrderTrack</p>
+        <p class="text-neutral-500 mt-2">کنترل مرکزی زیرساخت زلف</p>
       </div>
       <button class="btn-ghost text-danger font-bold border border-red-100 bg-red-50 hover:bg-red-100 px-6 py-3 rounded-2xl" @click="handleLogout">
         خروج امن

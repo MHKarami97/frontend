@@ -2,7 +2,7 @@
   <div class="mx-auto flex min-h-screen max-w-md items-center px-4">
     <div class="card w-full p-8 text-center bg-neutral-900 border-none shadow-2xl">
       <h1 class="text-2xl font-extrabold text-white">ورود مدیریت کل</h1>
-      <p class="text-sm text-neutral-400 mt-2">کنترل مرکزی سیستم OrderTrack</p>
+      <p class="text-sm text-neutral-400 mt-2">کنترل مرکزی سیستم زلف</p>
       
       <form class="mt-8 text-right space-y-5" @submit.prevent="submit">
         <div class="flex flex-col gap-1.5">
