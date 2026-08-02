@@ -9,7 +9,6 @@
       
       <div class="p-8">
         <div class="flex flex-col sm:flex-row gap-6">
-          <!-- Mapping full URL correctly here -->
           <img v-if="data.product?.imageUrl" :src="getFullImageUrl(data.product.imageUrl)" class="h-32 w-32 rounded-2xl object-cover border border-neutral-100 shadow-sm" />
           <div v-else class="h-32 w-32 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-400">بدون عکس</div>
           
@@ -44,8 +43,9 @@
               </div>
               <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] card p-4">
                 <div class="font-bold text-neutral-800">{{ translateEnum(orderStatusMap, item.status) }}</div>
+
                 <div class="text-sm text-neutral-500 mt-1">{{ item.note }}</div>
-                <div class="text-xs text-neutral-400 mt-2" dir="ltr">{{ new Date(item.created_at).toLocaleString('fa-IR') }}</div>
+                <div class="text-xs text-neutral-400 mt-2 font-mono" dir="ltr">{{ new Date(item.created_at).toLocaleString('fa-IR') }}</div>
               </div>
             </div>
 
