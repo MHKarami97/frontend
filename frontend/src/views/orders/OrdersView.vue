@@ -15,7 +15,7 @@
     <div class="space-y-6">
       <div class="flex items-center justify-between">
         <h1 class="text-2xl font-extrabold">مدیریت سفارش‌ها</h1>
-        <input v-model="search" class="input-field max-w-xs" placeholder="جستجو (نام، محصول یا توکن)..." @input="loadOrders" />
+        <input v-model="search" class="input-field max-w-xs" placeholder="جستجو محصول" @input="loadOrders" />
       </div>
       
       <div class="card p-6 border border-neutral-200">
