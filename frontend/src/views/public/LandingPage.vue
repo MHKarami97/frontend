@@ -15,7 +15,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="mx-auto max-w-7xl px-6 pt-32 pb-20 md:pt-48 md:pb-32 text-center">
+    <section class="mx-auto max-w-7xl px-6 pt-20 pb-8 md:pt-48 md:pb-32 text-center">
       <span class="inline-flex rounded-full bg-fuchsia-50 px-5 py-2 text-sm font-bold text-primary mb-6 border border-fuchsia-100">
         🚀 راه‌حل جامع مدیریت سفارش‌های سوشال مدیا
       </span>
@@ -98,7 +98,8 @@
     <!-- Footer -->
     <footer class="bg-neutral-50 py-12 border-t border-neutral-200 text-center">
       <div class="text-2xl font-black text-neutral-900 mb-4">زلف دوتا</div>
-      <p class="text-neutral-500 text-sm mb-8">تمامی حقوق برای پلتفرم رهگیری سفارشات محفوظ است.</p>      
+      <p class="text-neutral-500 text-sm mb-3">تمامی حقوق برای پلتفرم رهگیری سفارشات محفوظ است.</p>      
+      <p class="text-neutral-500 text-sm mb-3">طراحی توسط <a href="https://mhkarami97.ir">mhkarami97</a></p>      
     </footer>
   </div>
 </template>

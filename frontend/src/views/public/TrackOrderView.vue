@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-neutral-50 pb-12">
+  <div class="min-h-screen bg-neutral-50 pb-4">
     <!-- Modern Hero Header -->
     <div class="bg-neutral-900 text-white pb-20 pt-8 px-4 relative overflow-hidden">
       <div class="absolute -right-20 -top-20 w-64 h-64 bg-primary opacity-20 rounded-full blur-3xl pointer-events-none"></div>
@@ -98,9 +98,9 @@
       </div>
       
       <!-- Footer Branding -->
-      <div class="text-center pb-8 pt-4">
+      <div class="text-center pb-4 pt-4">
          <div class="text-xs text-neutral-400 font-medium">قدرت گرفته از سیستم مدیریت فروشگاه</div>
-         <div class="text-sm font-black text-neutral-300 mt-1 tracking-widest">OrderTrack</div>
+         <div class="text-sm font-black text-neutral-300 mt-1 tracking-widest"><a href="/">زلف دوتا</a></div>
       </div>
 
     </div>
