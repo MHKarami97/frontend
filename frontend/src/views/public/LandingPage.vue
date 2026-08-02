@@ -32,7 +32,9 @@
       </p>
       <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
         <RouterLink class="btn-primary text-lg px-8 py-4 shadow-xl shadow-primary/20" to="/register">شروع رایگان</RouterLink>
-        <a href="#features" class="btn-secondary text-lg px-8 py-4 bg-white">آشنایی با امکانات</a>
+        <button @click="scrollToFeatures" class="btn-secondary text-lg px-8 py-4 bg-white cursor-pointer hover:bg-neutral-50 transition-colors">
+          آشنایی با امکانات
+        </button>
       </div>
     </section>
 
@@ -112,3 +114,11 @@
     </footer>
   </div>
 </template>
+<script setup lang="ts">
+const scrollToFeatures = () => {
+  const element = document.getElementById('features');
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+</script>
