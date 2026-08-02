@@ -15,7 +15,8 @@
           <div class="flex flex-col gap-1.5">
             <label for="prodImage" class="label-text">تصویر محصول</label>
             <div class="relative">
-              <input id="prodImage" type="file" accept="image/*" class="input-field py-2 text-neutral-500 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-fuchsia-50 file:text-primary hover:file:bg-fuchsia-100" @change="handleFileUpload" :disabled="isLoading || isUploading" />
+              <!-- اضافه شدن ref برای دسترسی به اینپوت در جاوااسکریپت -->
+              <input id="prodImage" ref="fileInputRef" type="file" accept="image/*" class="input-field py-2 text-neutral-500 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-fuchsia-50 file:text-primary hover:file:bg-fuchsia-100" @change="handleFileUpload" :disabled="isLoading || isUploading" />
               <div v-if="isUploading" class="absolute left-3 top-3 text-xs text-primary font-bold animate-pulse">در حال آپلود...</div>
             </div>
           </div>
@@ -93,6 +94,7 @@ const errorMessage = ref('');
 const editingId = ref('');
 const isLoading = ref(false);
 const isUploading = ref(false);
+const fileInputRef = ref<HTMLInputElement | null>(null);
 
 const form = reactive({ title: '', imageUrl: '', description: '', price: 0 });
 const editForm = reactive({ title: '', imageUrl: '', description: '', price: 0 });
@@ -106,20 +108,27 @@ const handleFileUpload = async (event: Event) => {
     const formData = new FormData();
     formData.append('file', file);
     const token = localStorage.getItem('ordertrack-token');
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://ordertrack-api.example.workers.dev';
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://ordertrack-api.mhkarami97.workers.dev';
+    
     const response = await fetch(`${apiBaseUrl}/api/upload`, {
       method: 'POST',
       headers: token ? { 'Authorization': `Bearer ${token}` } : {},
       body: formData
     });
+    
     const resData = await response.json();
-    if (resData.url) form.imageUrl = resData.url;
-    else errorMessage.value = 'آپلود با خطا مواجه شد.';
+    if (resData.url) {
+      // ایجاد URL مطلق برای Zod
+      const baseUrl = apiBaseUrl.endsWith('/') ? apiBaseUrl.slice(0, -1) : apiBaseUrl;
+      form.imageUrl = resData.url.startsWith('http') ? resData.url : `${baseUrl}${resData.url}`;
+    } else {
+      errorMessage.value = 'آپلود با خطا مواجه شد.';
+    }
   } catch (err) {
     errorMessage.value = 'خطا در ارتباط با سرور.';
   } finally {
     isUploading.value = false;
-    if (target) target.value = '';
+    // حذف ریست شدن اینپوت از اینجا، تا کاربر ببیند فایل انتخاب شده است
   }
 };
 
@@ -134,7 +143,12 @@ const createProduct = async () => {
       errorMessage.value = result.message;
       return;
     }
+    // پاک کردن فرم پس از موفقیت
     Object.assign(form, { title: '', imageUrl: '', description: '', price: 0 });
+    if (fileInputRef.value) fileInputRef.value.value = ''; // حالا اینپوت را خالی می‌کنیم
+    
+    // پاک کردن کش داشبورد چون آمار محصولات تغییر کرده
+    api.clearCache('/api/reports/summary');
     await loadProducts();
   } catch (e) { errorMessage.value = 'خطا در ثبت محصول'; }
   finally { isLoading.value = false; }
@@ -147,7 +161,7 @@ const startEdit = (product: any) => {
 
 const saveEdit = async (id: string) => { await api.patch(`/api/products/${id}`, editForm); editingId.value = ''; await loadProducts(); };
 const toggleActive = async (product: any) => { await api.patch(`/api/products/${product.id}`, { isActive: !product.is_active }); await loadProducts(); };
-const removeProduct = async (id: string) => { await api.delete(`/api/products/${id}`); await loadProducts(); };
+const removeProduct = async (id: string) => { await api.delete(`/api/products/${id}`); api.clearCache('/api/reports/summary'); await loadProducts(); };
 
 onMounted(loadProducts);
 </script>

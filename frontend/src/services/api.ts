@@ -1,7 +1,14 @@
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://ordertrack-api.example.workers.dev';
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://ordertrack-api.mhkarami97.workers.dev';
 const getToken = () => localStorage.getItem('ordertrack-token') || '';
 const getRefreshToken = () => localStorage.getItem('ordertrack-refresh-token') || '';
 const getHeaders = () => ({ 'Content-Type': 'application/json', ...(getToken() ? { Authorization: `Bearer ${getToken()}` } : {}) });
+
+// حافظه کش کلاینت
+interface CacheEntry {
+  data: any;
+  timestamp: number;
+}
+const cache = new Map<string, CacheEntry>();
 
 const tryRefresh = async () => {
   const refreshToken = getRefreshToken();
@@ -26,8 +33,28 @@ const request = async (path: string, options: RequestInit = {}) => {
 };
 
 export const api = {
-  get: (path: string) => request(path),
+  // متد GET حالا پارامتر ttl (به میلی‌ثانیه) می‌پذیرد
+  get: async (path: string, ttl: number = 1000) => {
+    if (ttl > 0) {
+      const cached = cache.get(path);
+      if (cached && (Date.now() - cached.timestamp < ttl)) {
+        return cached.data;
+      }
+    }
+    const data = await request(path);
+    // اگر درخواست موفقیت‌آمیز بود (وجود دیتا یا آرایه) آن را کش کن
+    if (ttl > 0 && !data.error && !data.message) {
+      cache.set(path, { data, timestamp: Date.now() });
+    }
+    return data;
+  },
   post: (path: string, body: unknown) => request(path, { method: 'POST', body: JSON.stringify(body) }),
   patch: (path: string, body: unknown) => request(path, { method: 'PATCH', body: JSON.stringify(body) }),
-  delete: (path: string) => request(path, { method: 'DELETE' })
+  delete: (path: string) => request(path, { method: 'DELETE' }),
+  
+  // متد برای باطل کردن کش
+  clearCache: (path?: string) => {
+    if (path) cache.delete(path);
+    else cache.clear();
+  }
 };

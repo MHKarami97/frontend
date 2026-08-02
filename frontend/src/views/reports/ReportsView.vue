@@ -84,8 +84,10 @@ const finance = ref<any>({});
 const topCustomers = ref<any[]>([]);
 
 onMounted(async () => { 
-  demographics.value = await api.get('/api/reports/demographics'); 
-  finance.value = await api.get('/api/reports/finance'); 
-  topCustomers.value = await api.get('/api/reports/top-customers'); 
+  // استفاده از کش ۵ دقیقه‌ای برای گزارشات تحلیلی
+  const CACHE_TIME = 300000;
+  demographics.value = await api.get('/api/reports/demographics', CACHE_TIME); 
+  finance.value = await api.get('/api/reports/finance', CACHE_TIME); 
+  topCustomers.value = await api.get('/api/reports/top-customers', CACHE_TIME); 
 });
 </script>
