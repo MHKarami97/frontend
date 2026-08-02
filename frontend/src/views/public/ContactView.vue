@@ -56,39 +56,51 @@
           </a>
         </div>
 
-        <!-- Contact Form (UI Only) -->
+        <!-- Contact Form (Formspree Integration) -->
         <div class="lg:col-span-3 bg-white p-8 md:p-10 rounded-[2.5rem] shadow-xl shadow-neutral-200/40 border border-neutral-100">
           <h2 class="text-2xl font-black text-neutral-900 mb-8">ارسال پیام مستقیم</h2>
-          <form class="space-y-6" @submit.prevent="submitForm">
+          
+          <div v-if="status === 'success'" class="bg-emerald-50 border border-emerald-100 text-emerald-700 p-6 rounded-2xl text-center space-y-2 animate-[slideUp_0.3s_ease-out]">
+            <div class="text-4xl mb-2">✅</div>
+            <div class="font-black text-lg">پیام شما با موفقیت ارسال شد!</div>
+            <div class="text-sm">تیم پشتیبانی ما به زودی با شما تماس خواهد گرفت.</div>
+            <button @click="status = 'idle'" class="mt-4 text-emerald-600 text-sm font-bold underline">ارسال پیام جدید</button>
+          </div>
+
+          <form v-else class="space-y-6" @submit.prevent="submitForm">
             <div class="grid md:grid-cols-2 gap-6">
               <div class="flex flex-col gap-1.5">
-                <label class="label-text">نام و نام خانوادگی</label>
-                <input type="text" class="input-field bg-neutral-50" placeholder="مثلا: علی محمدی" required>
+                <label for="name" class="label-text">نام و نام خانوادگی</label>
+                <input id="name" v-model="form.name" type="text" class="input-field bg-neutral-50" placeholder="مثلا: علی محمدی" :disabled="status === 'submitting'" required>
               </div>
               <div class="flex flex-col gap-1.5">
-                <label class="label-text">ایمیل یا شماره تماس</label>
-                <input type="text" class="input-field bg-neutral-50 text-left" dir="ltr" placeholder="0912..." required>
+                <label for="contact" class="label-text">ایمیل یا شماره تماس</label>
+                <input id="contact" v-model="form.contact" type="text" class="input-field bg-neutral-50 text-left" dir="ltr" placeholder="0912..." :disabled="status === 'submitting'" required>
               </div>
             </div>
             
             <div class="flex flex-col gap-1.5">
-              <label class="label-text">موضوع پیام</label>
-              <select class="input-field bg-neutral-50" required>
+              <label for="subject" class="label-text">موضوع پیام</label>
+              <select id="subject" v-model="form.subject" class="input-field bg-neutral-50" :disabled="status === 'submitting'" required>
                 <option value="">انتخاب کنید...</option>
-                <option value="support">پشتیبانی فنی</option>
-                <option value="sales">خرید پلن و ارتقا</option>
-                <option value="suggestion">پیشنهاد امکانات جدید</option>
-                <option value="other">سایر موارد</option>
+                <option value="پشتیبانی فنی">پشتیبانی فنی</option>
+                <option value="خرید پلن و ارتقا">خرید پلن و ارتقا</option>
+                <option value="پیشنهاد امکانات جدید">پیشنهاد امکانات جدید</option>
+                <option value="سایر موارد">سایر موارد</option>
               </select>
             </div>
 
             <div class="flex flex-col gap-1.5">
-              <label class="label-text">متن پیام</label>
-              <textarea class="input-field bg-neutral-50 h-32 py-3 resize-none" placeholder="پیام خود را بنویسید..." required></textarea>
+              <label for="message" class="label-text">متن پیام</label>
+              <textarea id="message" v-model="form.message" class="input-field bg-neutral-50 h-32 py-3 resize-none" placeholder="پیام خود را بنویسید..." :disabled="status === 'submitting'" required></textarea>
             </div>
 
-            <button type="submit" class="btn-primary w-full py-4 text-base shadow-lg shadow-primary/20">
-              ارسال پیام
+            <p v-if="status === 'error'" class="text-sm text-danger font-bold bg-red-50 p-3 rounded-xl border border-red-100">
+              متأسفانه خطایی در ارسال پیام رخ داد. لطفاً دوباره تلاش کنید.
+            </p>
+
+            <button type="submit" class="btn-primary w-full py-4 text-base shadow-lg shadow-primary/20" :disabled="status === 'submitting'">
+              {{ status === 'submitting' ? 'در حال ارسال...' : 'ارسال پیام' }}
             </button>
           </form>
         </div>
@@ -98,8 +110,55 @@
   </div>
 </template>
 
+<style scoped>
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
 <script setup lang="ts">
-const submitForm = () => {
-  alert('این فرم در حال حاضر صرفاً یک رابط کاربری است. لطفا از طریق تلگرام یا ایمیل اقدام نمایید.');
+import { reactive, ref } from 'vue';
+
+const form = reactive({
+  name: '',
+  contact: '',
+  subject: '',
+  message: ''
+});
+
+const status = ref<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+const submitForm = async () => {
+  status.value = 'submitting';
+  
+  try {
+    const response = await fetch('https://formspree.io/f/meeybyby', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        نام: form.name,
+        شماره_تماس_یا_ایمیل: form.contact,
+        موضوع: form.subject,
+        پیام: form.message
+      })
+    });
+
+    if (response.ok) {
+      status.value = 'success';
+      // Reset form fields
+      form.name = '';
+      form.contact = '';
+      form.subject = '';
+      form.message = '';
+    } else {
+      status.value = 'error';
+    }
+  } catch (error) {
+    status.value = 'error';
+  }
 };
 </script>
