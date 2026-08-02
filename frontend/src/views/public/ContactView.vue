@@ -35,7 +35,7 @@
             <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center text-2xl shrink-0">📍</div>
             <div>
               <div class="font-bold text-neutral-400 text-xs mb-1">دفتر مرکزی</div>
-              <div class="font-bold text-neutral-800">ایران، البرز، کرج</div>
+              <div class="font-bold text-neutral-800">ایران، تهران</div>
             </div>
           </div>
           
