@@ -4,11 +4,18 @@
       <h1 class="text-2xl font-extrabold text-white">ورود مدیریت کل</h1>
       <p class="text-sm text-neutral-400 mt-2">کنترل مرکزی سیستم OrderTrack</p>
       
-      <form class="mt-8 space-y-5" @submit.prevent="submit">
-        <input v-model="email" class="w-full h-11 px-4 bg-neutral-800 border-none rounded-xl text-sm text-white placeholder-neutral-500 outline-none focus:ring-2 focus:ring-primary/50" type="email" placeholder="ایمیل مدیریت" :disabled="isLoading" required />
-        <input v-model="password" class="w-full h-11 px-4 bg-neutral-800 border-none rounded-xl text-sm text-white placeholder-neutral-500 outline-none focus:ring-2 focus:ring-primary/50" type="password" placeholder="رمز عبور" :disabled="isLoading" required />
+      <form class="mt-8 text-right space-y-5" @submit.prevent="submit">
+        <div class="flex flex-col gap-1.5">
+          <label for="adminEmail" class="label-text text-neutral-300">ایمیل مدیریت</label>
+          <input id="adminEmail" v-model="email" class="w-full h-12 px-4 bg-neutral-800 border-none rounded-2xl text-sm text-white placeholder-neutral-500 outline-none focus:ring-2 focus:ring-primary/50" type="email" placeholder="admin@ordertrack.com" dir="ltr" :disabled="isLoading" required />
+        </div>
         
-        <button class="btn-primary w-full py-3 text-base shadow-lg shadow-primary/30" :disabled="isLoading">
+        <div class="flex flex-col gap-1.5">
+          <label for="adminPassword" class="label-text text-neutral-300">رمز عبور</label>
+          <input id="adminPassword" v-model="password" class="w-full h-12 px-4 bg-neutral-800 border-none rounded-2xl text-sm text-white placeholder-neutral-500 outline-none focus:ring-2 focus:ring-primary/50" type="password" placeholder="••••••••" dir="ltr" :disabled="isLoading" required />
+        </div>
+        
+        <button class="btn-primary w-full py-3 text-base shadow-lg shadow-primary/30 mt-2" :disabled="isLoading">
           {{ isLoading ? 'در حال تأیید...' : 'ورود امن' }}
         </button>
       </form>
@@ -34,11 +41,8 @@ const submit = async () => {
   message.value = '';
   try {
     const result = await store.login(email.value, password.value, 'admin');
-    if (result.token) {
-      router.push('/system-admin');
-    } else {
-      message.value = result.message || 'اعتبارنامه نامعتبر است';
-    }
+    if (result.token) router.push('/system-admin');
+    else message.value = result.message || 'اعتبارنامه نامعتبر است';
   } catch (error) {
     message.value = 'ارتباط با سرور برقرار نشد.';
   } finally {

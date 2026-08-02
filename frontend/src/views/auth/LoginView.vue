@@ -4,11 +4,18 @@
       <h1 class="text-2xl font-extrabold text-neutral-800">ورود به پنل فروشگاه</h1>
       <p class="text-sm text-neutral-500 mt-2">مدیریت سفارشات و پیگیری مشتریان</p>
       
-      <form class="mt-8 space-y-5" @submit.prevent="submit">
-        <input v-model="email" class="input-field" type="email" placeholder="ایمیل" :disabled="isLoading" required />
-        <input v-model="password" class="input-field" type="password" placeholder="رمز عبور" :disabled="isLoading" required />
+      <form class="mt-8 text-right space-y-5" @submit.prevent="submit">
+        <div class="flex flex-col gap-1.5">
+          <label for="email" class="label-text">ایمیل فروشگاه</label>
+          <input id="email" v-model="email" class="input-field" type="email" placeholder="example@domain.com" dir="ltr" :disabled="isLoading" required />
+        </div>
         
-        <button class="btn-primary w-full py-3 text-base" :disabled="isLoading">
+        <div class="flex flex-col gap-1.5">
+          <label for="password" class="label-text">رمز عبور</label>
+          <input id="password" v-model="password" class="input-field" type="password" placeholder="••••••••" dir="ltr" :disabled="isLoading" required />
+        </div>
+        
+        <button class="btn-primary w-full py-3 text-base mt-2" :disabled="isLoading">
           {{ isLoading ? 'در حال بررسی...' : 'ورود به حساب' }}
         </button>
       </form>
@@ -34,11 +41,8 @@ const submit = async () => {
   message.value = '';
   try {
     const result = await store.login(email.value, password.value, 'shop');
-    if (result.token) {
-      router.push('/dashboard');
-    } else {
-      message.value = result.message || 'خطا در ورود';
-    }
+    if (result.token) router.push('/dashboard');
+    else message.value = result.message || 'خطا در ورود';
   } catch (error) {
     message.value = 'ارتباط با سرور برقرار نشد.';
   } finally {
