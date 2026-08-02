@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto flex min-h-screen max-w-7xl flex-col md:flex-row">
+  <div class="mx-auto flex min-h-screen flex-col md:flex-row">
     <aside class="hidden w-72 border-l border-neutral-200 bg-white p-6 md:block">
       <div class="mb-6 text-2xl font-extrabold text-primary">OrderTrack</div>
       <nav class="space-y-3 text-sm">
