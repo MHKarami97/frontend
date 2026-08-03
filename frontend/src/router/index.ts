@@ -27,11 +27,28 @@ router.beforeEach((to) => {
   const token = localStorage.getItem('ordertrack-token');
   const role = localStorage.getItem('ordertrack-role');
   
-  const publicPaths = ['/', '/login', '/admin-login', '/register', '/about', '/contact', '/help'];
+  // جداسازی مسیرهای احراز هویت از مسیرهای عمومی
+  const authPaths = ['/login', '/admin-login', '/register'];
+  const publicPaths = ['/', '/about', '/contact', '/help'];
   const isTrackingPage = to.path.startsWith('/track/');
   
-  if (publicPaths.includes(to.path) || isTrackingPage || to.path.startsWith('/404') || to.matched.length === 0) return true;
+  // قانون اول (Guest Guard): اگر کاربر توکن دارد و قصد ورود به صفحات لاگین/ثبت‌نام را دارد
+  if (token && authPaths.includes(to.path)) {
+    // بر اساس نقش، او را به پنل اختصاصی خودش پرتاب کن
+    if (role === 'system_admin') return '/system-admin';
+    if (role === 'shop_operator') return '/orders';
+    return '/dashboard'; // پیش‌فرض برای shop_owner
+  }
+  
+  // اجازه دسترسی بدون لاگین به صفحات پابلیک و ترکینگ
+  if (publicPaths.includes(to.path) || authPaths.includes(to.path) || isTrackingPage || to.path.startsWith('/404') || to.matched.length === 0) {
+     return true;
+  }
+  
+  // قانون دوم (Auth Guard): اگر مسیر پابلیک نیست و کاربر توکن ندارد
   if (!token) return '/login';
+  
+  // قانون سوم (Role Guard): کنترل دسترسی‌های نقش‌ها داخل پنل
   if (to.path === '/system-admin' && role !== 'system_admin') return '/dashboard';
   if (role === 'shop_operator' && ['/products', '/customers', '/reports', '/shop-users', '/subscriptions'].includes(to.path)) return '/orders';
   
