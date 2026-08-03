@@ -5,7 +5,7 @@
       <div class="absolute -left-10 -top-10 w-32 h-32 bg-primary opacity-5 rounded-full blur-2xl"></div>
       <div class="relative z-10">
         <h1 class="text-3xl font-black text-neutral-900">پنل مدیریت کل سیستم</h1>
-        <p class="text-neutral-500 mt-2">کنترل مرکزی زیرساخت و درآمد OrderTrack</p>
+        <p class="text-neutral-500 mt-2">کنترل مرکزی زیرساخت و درآمد زلف</p>
       </div>
       <button class="btn-ghost text-danger font-bold border border-red-100 bg-red-50 hover:bg-red-100 px-6 py-3 rounded-2xl relative z-10 w-full md:w-auto" @click="handleLogout">خروج امن</button>
     </div>
@@ -15,7 +15,7 @@
        <button @click="activeTab = 'shops'" class="px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap" :class="activeTab==='shops' ? 'bg-neutral-900 text-white shadow-lg' : 'bg-white text-neutral-500 border border-neutral-200 hover:bg-neutral-50'">مدیریت فروشگاه‌ها</button>
        <button @click="activeTab = 'receipts'" class="px-6 py-3 rounded-xl font-bold transition-all relative whitespace-nowrap" :class="activeTab==='receipts' ? 'bg-primary text-white shadow-lg shadow-primary/30' : 'bg-white text-neutral-500 border border-neutral-200 hover:bg-neutral-50'">
           بررسی فیش‌های واریزی
-          <span v-if="receipts.filter(r=>r.status==='pending').length > 0" class="absolute -top-2 -right-2 bg-danger text-white w-6 h-6 flex items-center justify-center rounded-full text-xs animate-bounce">{{receipts.filter(r=>r.status==='pending').length}}</span>
+          <span v-if="receipts.filter(r=>r.status==='pending').length > 0" class="absolute -right-2 bg-danger text-white w-6 h-6 flex items-center justify-center rounded-full text-xs animate-bounce">{{receipts.filter(r=>r.status==='pending').length}}</span>
        </button>
     </div>
 

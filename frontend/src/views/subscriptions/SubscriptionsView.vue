@@ -49,7 +49,7 @@
                   
                   <div v-if="form.planId" class="bg-white p-4 rounded-xl border border-primary/20 text-sm leading-relaxed">
                      لطفاً مبلغ <span class="font-black text-primary">{{ selectedPlanPrice }}</span> را به شماره کارت زیر واریز کرده و عکس رسید را آپلود کنید:
-                     <div class="mt-3 font-mono text-center text-lg font-black tracking-widest bg-neutral-100 py-2 rounded-lg" dir="ltr">6037-9911-2233-4455</div>
+                     <div class="mt-3 font-mono text-center text-lg font-black tracking-widest bg-neutral-100 py-2 rounded-lg" dir="ltr">6037-9911-2233-0000</div>
                      <div class="text-center text-xs text-neutral-400 mt-1">به نام مدیریت پلتفرم زلف دوتا</div>
                   </div>
 
