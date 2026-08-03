@@ -45,7 +45,71 @@
       <p class="mx-auto mt-8 max-w-2xl text-lg text-neutral-500">بدون نیاز به زیرساخت پیچیده، سفارشات خود را ثبت کنید و به مشتریان لینک رهگیری اختصاصی بدهید.</p>
       <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
         <RouterLink class="btn-primary text-lg px-8 py-4" to="/register">شروع رایگان</RouterLink>
-        <button @click="scrollTo('plans')" class="btn-secondary text-lg px-8 py-4 bg-white cursor-pointer hover:bg-neutral-50">نحوه کارکرد سیستم</button>
+        <button @click="scrollTo('features')" class="btn-secondary text-lg px-8 py-4 bg-white cursor-pointer hover:bg-neutral-50">نحوه کارکرد سیستم</button>
+      </div>
+    </section>
+
+     <!-- Testimonials / About -->
+    <section class="py-24 mx-auto max-w-7xl px-6">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="text-3xl font-extrabold text-neutral-900 mb-6">درباره پلتفرم ما</h2>
+          <p class="text-neutral-600 leading-8 text-lg mb-6 text-justify">
+            پلتفرم ما با درک عمیق از چالش‌های فروشگاه‌های شبکه اجتماعی طراحی شده است. ما معماری را انتخاب کردیم تا سریع‌ترین و سبک‌ترین تجربه را روی موبایل داشته باشید.
+          </p>
+          <ul class="space-y-4 font-medium text-neutral-700">
+            <li class="flex items-center gap-3"><span class="text-primary">✔</span> سرعت بی‌نظیر</li>
+            <li class="flex items-center gap-3"><span class="text-primary">✔</span> دارای نسخه رایگان</li>
+            <li class="flex items-center gap-3"><span class="text-primary">✔</span> امنیت بالای داده‌های مشتریان</li>
+          </ul>
+        </div>
+        <div class="bg-gradient-to-br from-neutral-900 to-neutral-800 p-10 rounded-[3rem] shadow-2xl relative overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-primary opacity-20 rounded-full blur-3xl pointer-events-none"></div>
+          <p class="text-xl text-neutral-300 leading-relaxed italic mb-8 relative z-10">
+             "از زمانی که از این سیستم استفاده می‌کنم، بار پشتیبانی دایرکت‌های اینستاگرام من ۶۰ درصد کاهش یافته و مشتریانم اعتماد بسیار بیشتری به پیج پیدا کرده‌اند."
+          </p>
+          <div class="flex items-center gap-4 relative z-10">
+            <div class="w-12 h-12 bg-neutral-600 rounded-full flex items-center justify-center text-white font-medium select-none">M</div>
+            <div>
+              <div class="text-white font-bold">فروشگاه لباس ماهور</div>
+              <div class="text-sm text-neutral-400">مشتری نسخه Pro</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section id="features" class="bg-neutral-50 py-24 border-y border-neutral-100">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-extrabold text-neutral-900">چرا زلف دوتا؟</h2>
+          <p class="mt-4 text-neutral-500 text-lg">ابزارهای قدرتمند با کاربری فوق‌العاده ساده.</p>
+        </div>
+        
+        <div class="grid gap-8 md:grid-cols-3">
+          <div class="bg-white p-8 rounded-3xl shadow-sm border border-neutral-100 hover:shadow-lg transition-shadow">
+            <div class="w-14 h-14 bg-fuchsia-100 rounded-2xl flex items-center justify-center text-3xl mb-6">🔗</div>
+            <h3 class="text-xl font-bold text-neutral-900 mb-3">لینک اختصاصی رهگیری</h3>
+            <p class="text-neutral-500 leading-relaxed">
+              دیگر نیازی به پاسخگویی دائم به سوال "سفارش من کجاست؟" نیست. مشتری به صورت لحظه‌ای از وضعیت آگاه می‌شود.
+            </p>
+          </div>
+          <div class="bg-white p-8 rounded-3xl shadow-sm border border-neutral-100 hover:shadow-lg transition-shadow">
+            <div class="w-14 h-14 bg-cyan-100 rounded-2xl flex items-center justify-center text-3xl mb-6">📊</div>
+            <h3 class="text-xl font-bold text-neutral-900 mb-3">گزارش‌های تحلیلی</h3>
+            <p class="text-neutral-500 leading-relaxed">
+              تفکیک فروش بر اساس شهر، جنسیت و منبع سفارش. بهترین محصولات خود را بشناسید و روی آن‌ها تمرکز کنید.
+            </p>
+          </div>
+          <div class="bg-white p-8 rounded-3xl shadow-sm border border-neutral-100 hover:shadow-lg transition-shadow">
+            <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center text-3xl mb-6">👥</div>
+            <h3 class="text-xl font-bold text-neutral-900 mb-3">مدیریت تیم و همکاران</h3>
+            <p class="text-neutral-500 leading-relaxed">
+              دسترسی محدود به اپراتورها برای ثبت سفارش بدون افشای اطلاعات حیاتی مالی فروشگاه (در نسخه Pro).
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
