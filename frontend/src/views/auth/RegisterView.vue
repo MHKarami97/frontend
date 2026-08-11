@@ -13,12 +13,12 @@
       <h1 class="text-2xl font-extrabold text-center mb-8">ایجاد فروشگاه جدید</h1>
       <form class="space-y-4" @submit.prevent="submit">
         <div class="flex flex-col gap-1.5">
-          <label for="shopName" class="label-text">نام فروشگاه</label>
-          <input id="shopName" v-model="name" class="input-field" placeholder="مثلاً: فروشگاه لباس ماهور" :disabled="isLoading" required />
+          <label for="shopName" class="label-text">نام فروشگاه (حداقل 3 کاراکتر)</label>
+          <input id="shopName" v-model="name" class="input-field" placeholder="مثلاً: فروشگاه لباس ماهور" minlength="3" :disabled="isLoading" required />
         </div>
         
         <div class="flex flex-col gap-1.5">
-          <label for="shopSlug" class="label-text">شناسه یکتا (لینک)</label>
+          <label for="shopSlug" class="label-text">شناسه یکتا (حداقل 3 کاراکتر)</label>
           <input id="shopSlug" v-model="slug" class="input-field" placeholder="فقط حروف انگلیسی و خط تیره" dir="ltr" pattern="[a-z0-9-]+" title="فقط حروف کوچک انگلیسی، اعداد و خط تیره" :disabled="isLoading" required />
         </div>
         
