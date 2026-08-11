@@ -55,19 +55,36 @@ const message = ref('');
 const isLoading = ref(false);
 const showSuccess = ref(false);
 
+const translateBackendError = (msg: string) => {
+  if (msg === 'Shop already exists') return 'فروشگاهی با این ایمیل یا شناسه یکتا قبلاً ثبت شده است.';
+  if (msg.includes('slug')) return 'شناسه یکتا نامعتبر است (فقط از حروف انگلیسی، اعداد و خط تیره استفاده کنید).';
+  if (msg.includes('password')) return 'رمز عبور باید حداقل ۸ کاراکتر باشد.';
+  if (msg.includes('email')) return 'فرمت ایمیل وارد شده نامعتبر است.';
+  return msg || 'خطا در ثبت‌نام. لطفاً اطلاعات را بررسی کنید.';
+};
+
 const submit = async () => {
   isLoading.value = true;
   message.value = '';
   try {
-    const result = await api.post('/api/auth/register', { name: name.value, slug: slug.value, email: email.value, password: password.value });
+    const result = await api.post('/api/auth/register', { 
+      name: name.value, 
+      slug: slug.value, 
+      email: email.value, 
+      password: password.value 
+    });
+    
+    // اگر پاسخ 200 یا 201 باشد و پیام موفقیت آمیز باشد
     if (result.message === 'Shop registered and pending approval') {
       showSuccess.value = true;
       setTimeout(() => router.push('/'), 3500);
     } else {
-      message.value = result.message || 'خطا در ثبت نام';
+      // استفاده از مپر برای خطاهای 400 یا 409 که ساختار JSON دارند
+      message.value = translateBackendError(result.message);
     }
-  } catch (error) {
-    message.value = 'ارتباط با سرور با مشکل مواجه شد';
+  } catch (error: any) {
+    // خطاهای شبکه یا خطاهایی که در fetch رخ می‌دهند
+    message.value = error.message || 'اتصال اینترنت خود را بررسی کنید.';
   } finally {
     isLoading.value = false;
   }
