@@ -17,9 +17,9 @@
         <RouterLink v-if="role !== 'shop_operator'" class="block rounded-2xl px-4 py-3 text-neutral-600 hover:bg-fuchsia-50 hover:text-primary transition-colors" active-class="bg-fuchsia-50 text-primary" to="/reports">آمار</RouterLink>
         <RouterLink v-if="role === 'shop_owner'" class="block rounded-2xl px-4 py-3 text-neutral-600 hover:bg-fuchsia-50 hover:text-primary transition-colors" active-class="bg-fuchsia-50 text-primary" to="/shop-users">همکاران</RouterLink>
         
-        <RouterLink v-if="role === 'shop_owner'" class="block rounded-2xl px-4 py-3 text-neutral-600 hover:bg-fuchsia-50 hover:text-primary transition-colors bg-gradient-to-r hover:from-fuchsia-50 hover:to-transparent mt-4 border border-transparent hover:border-fuchsia-100" active-class="bg-fuchsia-50 text-primary border-fuchsia-100 shadow-sm" to="/subscriptions">
+        <!-- <RouterLink v-if="role === 'shop_owner'" class="block rounded-2xl px-4 py-3 text-neutral-600 hover:bg-fuchsia-50 hover:text-primary transition-colors bg-gradient-to-r hover:from-fuchsia-50 hover:to-transparent mt-4 border border-transparent hover:border-fuchsia-100" active-class="bg-fuchsia-50 text-primary border-fuchsia-100 shadow-sm" to="/subscriptions">
           ⭐ خرید و مدیریت اشتراک
-        </RouterLink>
+        </RouterLink> -->
       </nav>
 
       <div class="pt-6 border-t border-neutral-100 mt-auto">
