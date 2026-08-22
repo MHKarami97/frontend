@@ -6,7 +6,7 @@
         
         <!-- Desktop Nav -->
         <div class="hidden md:flex gap-8 text-sm font-bold text-neutral-600">
-          <button @click="scrollTo('plans')" class="hover:text-primary transition-colors">تعرفه‌ها</button>
+          <!-- <button @click="scrollTo('plans')" class="hover:text-primary transition-colors">تعرفه‌ها</button> -->
           <RouterLink to="/help" class="hover:text-primary transition-colors">راهنمای استفاده</RouterLink>
           <RouterLink to="/about" class="hover:text-primary transition-colors">درباره ما</RouterLink>
         </div>
@@ -26,7 +26,7 @@
 
       <!-- Mobile Fullscreen Menu -->
       <div v-if="isMobileMenuOpen" class="md:hidden absolute top-full left-0 w-full h-screen bg-white/95 backdrop-blur-3xl border-t border-neutral-100 p-6 flex flex-col gap-6 animate-[slideDown_0.2s_ease-out]">
-        <button @click="scrollTo('plans'); isMobileMenuOpen=false" class="text-lg font-black text-neutral-800 text-right w-full border-b border-neutral-100 pb-4">تعرفه‌ها و اشتراک‌ها</button>
+        <!-- <button @click="scrollTo('plans'); isMobileMenuOpen=false" class="text-lg font-black text-neutral-800 text-right w-full border-b border-neutral-100 pb-4">تعرفه‌ها و اشتراک‌ها</button> -->
         <RouterLink to="/help" @click="isMobileMenuOpen=false" class="text-lg font-black text-neutral-800 border-b border-neutral-100 pb-4">راهنمای استفاده</RouterLink>
         <RouterLink to="/about" @click="isMobileMenuOpen=false" class="text-lg font-black text-neutral-800 border-b border-neutral-100 pb-4">درباره ما</RouterLink>
         <RouterLink to="/contact" @click="isMobileMenuOpen=false" class="text-lg font-black text-neutral-800 border-b border-neutral-100 pb-4">تماس با ما</RouterLink>
@@ -114,7 +114,7 @@
     </section>
 
     <!-- PRICING PLANS -->
-    <section id="plans" class="bg-neutral-50 py-24 border-y border-neutral-100">
+    <!-- <section id="plans" class="bg-neutral-50 py-24 border-y border-neutral-100">
       <div class="mx-auto max-w-5xl px-6">
         <div class="text-center mb-16">
           <h2 class="text-3xl font-extrabold text-neutral-900">تعرفه‌ها و اشتراک‌ها</h2>
@@ -154,7 +154,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- Footer -->
     <footer class="bg-neutral-900 text-neutral-400 py-12 text-center text-sm">
