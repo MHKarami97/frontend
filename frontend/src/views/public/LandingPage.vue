@@ -44,7 +44,7 @@
       </h1>
       <p class="mx-auto mt-8 max-w-2xl text-lg text-neutral-500">بدون نیاز به زیرساخت پیچیده، سفارشات خود را ثبت کنید و به مشتریان لینک رهگیری اختصاصی بدهید.</p>
       <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-        <RouterLink class="btn-primary text-lg px-8 py-4" to="/register">شروع رایگان</RouterLink>
+        <RouterLink class="btn-primary text-lg px-8 py-4" to="/register">شروع</RouterLink>
         <button @click="scrollTo('features')" class="btn-secondary text-lg px-8 py-4 bg-white cursor-pointer hover:bg-neutral-50">نحوه کارکرد سیستم</button>
       </div>
     </section>
@@ -72,7 +72,7 @@
             <div class="w-12 h-12 bg-neutral-600 rounded-full flex items-center justify-center text-white font-medium select-none">M</div>
             <div>
               <div class="text-white font-bold">فروشگاه لباس ماهور</div>
-              <div class="text-sm text-neutral-400">مشتری نسخه Pro</div>
+              <div class="text-sm text-neutral-400">مشتری</div>
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@
             <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center text-3xl mb-6">👥</div>
             <h3 class="text-xl font-bold text-neutral-900 mb-3">مدیریت تیم و همکاران</h3>
             <p class="text-neutral-500 leading-relaxed">
-              دسترسی محدود به اپراتورها برای ثبت سفارش بدون افشای اطلاعات حیاتی مالی فروشگاه (در نسخه Pro).
+              دسترسی محدود به اپراتورها برای ثبت سفارش بدون افشای اطلاعات حیاتی مالی فروشگاه.
             </p>
           </div>
         </div>
