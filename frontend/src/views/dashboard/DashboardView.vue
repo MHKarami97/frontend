@@ -58,12 +58,12 @@
       </div>
 
       <!-- NEW: Support & Upsell Banner -->
-      <div class="card p-6 lg:p-8 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white shadow-xl relative overflow-hidden border-none mt-4">
-        <!-- Decorative Glow -->
+   <!--    <div class="card p-6 lg:p-8 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white shadow-xl relative overflow-hidden border-none mt-4">
+        
         <div class="absolute -left-10 -top-10 w-40 h-40 bg-primary opacity-20 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-cyan-500 opacity-10 rounded-full blur-3xl pointer-events-none"></div>
         
-        <!-- <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div class="w-full md:w-auto">
             <h2 class="text-xl font-black text-white">نیاز به امکانات بیشتر یا پشتیبانی دارید؟</h2>
             <p class="mt-2 text-sm text-neutral-400 leading-relaxed max-w-xl">
@@ -81,8 +81,8 @@
               <span dir="ltr">021-00000000</span>
             </a>
           </div>
-        </div> -->
-      </div>
+        </div>
+      </div> -->
 
     </div>
   </AppShell>
