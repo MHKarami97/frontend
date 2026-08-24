@@ -42,7 +42,7 @@
           </div>
         </div>
         
-        <div class="card p-5">
+        <!-- <div class="card p-5">
           <h2 class="font-bold">سقف پلن فعلی</h2>
           <div v-if="loadingShop" class="mt-4 space-y-3">
              <div class="skeleton h-5 w-full"></div>
@@ -54,7 +54,7 @@
             <div class="flex justify-between items-center p-2 bg-neutral-50 rounded-lg"><span>محصول</span><span class="font-black">{{ shop.product_limit || 0 }}</span></div>
             <div class="flex justify-between items-center p-2 bg-neutral-50 rounded-lg"><span>همکار</span><span class="font-black">{{ shop.operator_limit || 0 }}</span></div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <!-- NEW: Support & Upsell Banner -->
@@ -63,7 +63,7 @@
         <div class="absolute -left-10 -top-10 w-40 h-40 bg-primary opacity-20 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-cyan-500 opacity-10 rounded-full blur-3xl pointer-events-none"></div>
         
-        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <!-- <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div class="w-full md:w-auto">
             <h2 class="text-xl font-black text-white">نیاز به امکانات بیشتر یا پشتیبانی دارید؟</h2>
             <p class="mt-2 text-sm text-neutral-400 leading-relaxed max-w-xl">
@@ -81,7 +81,7 @@
               <span dir="ltr">021-00000000</span>
             </a>
           </div>
-        </div>
+        </div> -->
       </div>
 
     </div>
